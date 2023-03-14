@@ -30,7 +30,39 @@ namespace AddressBookSystem
         }
         public void Display()
         {
-            Console.WriteLine(contact.Fn + "\n" + contact.Ln + "\n" + contact.Address + "\n" + contact.State + "\n" + contact.City + "\n" + contact.ZipCode + "\n" + contact.PhNo + "\n" + contact.Email);
+            Console.WriteLine("First Name--->"+contact.Fn + "\n" + "Last Name--->"+ contact.Ln + "\n" +"Address--->"+ contact.Address + "\n" +"State--->"+ contact.State + "\n" +"City--->"+ contact.City + "\n" +"ZipCode--->"+ contact.ZipCode + "\n" + "Phone Number--->"+contact.PhNo + "\n" +"Email Id--->"+ contact.Email);
+        }
+        public void Edit_Contact()
+        {
+            Console.WriteLine("Enter option to edit \n1.First Name\n2.Last Name\n3.Address\n4.State\n5.City\n6.ZipCode\n7.Phone Number\n8.Email Id");
+            int op = Convert.ToInt32(Console.ReadLine());
+            switch(op)
+            {
+                case 1:
+                    contact.Fn = Console.ReadLine();
+                    break;
+                case 2:
+                    contact.Ln = Console.ReadLine();
+                    break;
+                case 3:
+                    contact.Address = Console.ReadLine();
+                    break;
+                case 4:
+                    contact.State = Console.ReadLine();
+                    break;
+                case 5:
+                    contact.City = Console.ReadLine();
+                    break;
+                case 6:
+                    contact.ZipCode = Console.ReadLine();
+                    break;
+                case 7:
+                    contact.PhNo = Console.ReadLine();
+                    break;
+                case 8:
+                    contact.Email = Console.ReadLine();
+                    break;
+            }
         }
     }
 }

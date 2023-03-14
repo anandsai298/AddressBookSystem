@@ -6,23 +6,25 @@ namespace AddressBookSystem
     {
         static void Main(String[] args)
         {
-            Contact contact = new Contact();
-            Console.WriteLine("Enter First Name ");
-            contact.Fn = Console.ReadLine();
-            Console.WriteLine("Enter Last Name ");
-            contact.Ln = Console.ReadLine();
-            Console.WriteLine("Enter Address ");
-            contact.Address = Console.ReadLine();
-            Console.WriteLine("Enter State ");
-            contact.State = Console.ReadLine();
-            Console.WriteLine("Enter City ");
-            contact.City = Console.ReadLine();
-            Console.WriteLine("Enter ZipCode ");
-            contact.ZipCode = Console.ReadLine();
-            Console.WriteLine("Enter Phone Number ");
-            contact.PhNo = Console.ReadLine();
-            Console.WriteLine("Enter Email Id ");
-            contact.Email = Console.ReadLine();
+            bool flag = true;
+            while(flag)
+            {
+                Console.WriteLine("1.Add_Contact\n2.EditContact");
+                Console.WriteLine("Enter option to display option");
+                int option = Convert.ToInt32(Console.ReadLine());
+                AddressBookMain ABM = new AddressBookMain();
+                switch (option)
+                {
+                    case 1:
+                        ABM.AddContact();
+                        ABM.Display();
+                        break;
+                    case 2:
+                        ABM.Edit_Contact();
+                        ABM.Display();
+                        break;
+                }
+            }
         }
     }
 }
