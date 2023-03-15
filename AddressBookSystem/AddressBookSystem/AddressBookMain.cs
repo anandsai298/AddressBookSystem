@@ -79,16 +79,17 @@ namespace AddressBookSystem
         }
         public void Delete_Contact()
         {
+            Contact contact = new Contact();
             Console.WriteLine("Enter name to delete contact");
             string name = Console.ReadLine();
             foreach (var data in addressbook)
             {
                 if(data.Fn.Equals(name))
                 {
-                    addressbook.Remove(data);
+                    contact = data;
                 }
             }
-
+            addressbook.Remove(contact);
         }
     }
 }

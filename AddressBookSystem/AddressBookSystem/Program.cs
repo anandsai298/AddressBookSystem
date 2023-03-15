@@ -6,13 +6,13 @@ namespace AddressBookSystem
     {
         static void Main(String[] args)
         {
+            AddressBookMain ABM = new AddressBookMain();
             bool flag = true;
             while(flag)
             {
-                Console.WriteLine("1.Add_Contact\n2.EditContact\n3.DeleteContact");
+                Console.WriteLine("1.Add_Contact\n2.EditContact\n3.DeleteContact\n4.Display");
                 Console.WriteLine("Enter option to display option");
                 int option = Convert.ToInt32(Console.ReadLine());
-                AddressBookMain ABM = new AddressBookMain();
                 switch (option)
                 {
                     case 1:
@@ -20,14 +20,14 @@ namespace AddressBookSystem
                         {
                         ABM.AddContact();
                         }
-                        ABM.Display();
                         break;
                     case 2:
                         ABM.Edit_Contact();
-                        ABM.Display();
                         break;
                     case 3:
                         ABM.Delete_Contact();
+                        break;
+                    case 4:
                         ABM.Display();
                         break;
                 }
