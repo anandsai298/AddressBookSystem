@@ -10,7 +10,7 @@ namespace AddressBookSystem
             bool flag = true;
             while(flag)
             {
-                Console.WriteLine("1.Add_Contact\n2.EditContact\n3.DeleteContact\n4.Display");
+                Console.WriteLine("1.Add_Contact\n2.EditContact\n3.DeleteContact");
                 Console.WriteLine("Enter option to display option");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
@@ -22,13 +22,10 @@ namespace AddressBookSystem
                         }
                         break;
                     case 2:
-                        ABM.Edit_Contact();
+                        ABM.Edit_Contact("A","ask");
                         break;
                     case 3:
-                        ABM.Delete_Contact();
-                        break;
-                    case 4:
-                        ABM.Display();
+                        ABM.Delete_Contact("A", "ask");
                         break;
                 }
             }

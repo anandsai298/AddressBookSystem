@@ -1,95 +1,157 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace AddressBookSystem
 {
     public class AddressBookMain
     {
-        List<Contact> addressbook = new List<Contact>();
+        List<Contact> AddressList = new List<Contact>();
+        Dictionary<string,List<Contact>> ContactDic = new Dictionary<string, List<Contact>> ();
+        public AddressBookMain()
+        {
+            Contact contact1 = new Contact()
+            {
+                Fn = "ask",
+                Ln = "sa",
+                Address = "as",
+                State = "f",
+                City = "kkd",
+                ZipCode = "5357",
+                PhNo = "123456789",
+                Email = "sdfg@ghj"
+            };
+            Contact contact2 = new Contact()
+            {
+                Fn = "ask2",
+                Ln = "sa2",
+                Address = "as2",
+                State = "f2",
+                City = "kkd2",
+                ZipCode = "53572",
+                PhNo = "1234567892",
+                Email = "sdfg@ghj2"
+            };
+            AddressList.Add(contact1);
+            AddressList.Add(contact2);
+            ContactDic.Add("A", AddressList);
+            
+        }
         public void AddContact()
         {
-            Contact contact = new Contact();//local
-            Console.WriteLine("Enter First Name ");
-            contact.Fn = Console.ReadLine();
-            Console.WriteLine("Enter Last Name ");
-            contact.Ln = Console.ReadLine();
-            Console.WriteLine("Enter Address ");
-            contact.Address = Console.ReadLine();
-            Console.WriteLine("Enter State ");
-            contact.State = Console.ReadLine();
-            Console.WriteLine("Enter City ");
-            contact.City = Console.ReadLine();
-            Console.WriteLine("Enter ZipCode ");
-            contact.ZipCode = Console.ReadLine();
-            Console.WriteLine("Enter Phone Number ");
-            contact.PhNo = Console.ReadLine();
-            Console.WriteLine("Enter Email Id ");
-            contact.Email = Console.ReadLine();
-            addressbook.Add(contact);
-        }
-        public void Display()
-        {
-            foreach(var contact in addressbook) 
+            string UniqueName=Console.ReadLine();
+            Contact contact = new Contact()
             { 
-            Console.WriteLine("First Name--->"+contact.Fn + "\n" + "Last Name--->"+ contact.Ln + "\n" +"Address--->"+ contact.Address + "\n" +"State--->"+ contact.State + "\n" +"City--->"+ contact.City + "\n" +"ZipCode--->"+ contact.ZipCode + "\n" + "Phone Number--->"+contact.PhNo + "\n" +"Email Id--->"+ contact.Email);
+            Fn = Console.ReadLine(),
+            Ln = Console.ReadLine(),
+            Address = Console.ReadLine(),
+            State = Console.ReadLine(),
+            City = Console.ReadLine(),   
+            ZipCode = Console.ReadLine(),
+            PhNo = Console.ReadLine(),
+            Email = Console.ReadLine()
+            };
+            foreach(var data in ContactDic)
+            {
+                if (data.Key == UniqueName)
+                {
+                    data.Value.Add(contact);
+                    return;
+                }
             }
+            AddressList.Add(contact);
+            ContactDic.Add("UniqueName", AddressList);
+            Display(ContactDic);
         }
-        public void Edit_Contact()
+
+        public void Display(Dictionary<string, List<Contact>>contacts)
+        {
+            foreach(var data in contacts) 
+            { 
+                Console.WriteLine(data.Key);
+                foreach(var contact in data.Value)
+                {
+                    Console.WriteLine("First Name--->" + contact.Fn + "\n" + "Last Name--->" + contact.Ln + "\n" + "Address--->" + contact.Address + "\n" + "State--->" + contact.State + "\n" + "City--->" + contact.City + "\n" + "ZipCode--->" + contact.ZipCode + "\n" + "Phone Number--->" + contact.PhNo + "\n" + "Email Id--->" + contact.Email);
+                }
+            }
+            
+        }
+        public void Edit_Contact(string UniqueName,string contactname)
         {
             Console.WriteLine("Edit using First Name");
             string name = Console.ReadLine();
-            foreach(var data in addressbook) 
+            foreach(var data in ContactDic) 
             {
-                if (data.Fn == name) 
-                { 
-                    Console.WriteLine("Enter option to edit \n1.First Name\n2.Last Name\n3.Address\n4.State\n5.City\n6.ZipCode\n7.Phone Number\n8.Email Id");
-                    int op = Convert.ToInt32(Console.ReadLine());
-                    switch(op)
+                if (data.Key.Equals(UniqueName))
+                {
+                    foreach(var contact in data.Value)
                     {
-                        case 1:
-                            data.Fn = Console.ReadLine();
-                            break;
-                        case 2:
-                            data.Ln = Console.ReadLine();
-                            break;
-                        case 3:
-                            data.Address = Console.ReadLine();
-                            break;
-                        case 4:
-                            data.State = Console.ReadLine();
-                            break;
-                        case 5:
-                            data.City = Console.ReadLine();
-                            break;
-                        case 6:
-                            data.ZipCode = Console.ReadLine();
-                            break;
-                        case 7:
-                            data.PhNo = Console.ReadLine();
-                            break;
-                        case 8:
-                            data.Email = Console.ReadLine();
-                            break;
+                        if(contact.Fn == contactname)
+                        {
+                            Console.WriteLine("Enter option to edit \n1.First Name\n2.Last Name\n3.Address\n4.State\n5.City\n6.ZipCode\n7.Phone Number\n8.Email Id");
+                            int op = Convert.ToInt32(Console.ReadLine());
+                            switch (op)
+                            {
+                                case 1:
+                                    contact.Fn = Console.ReadLine();
+                                    break;
+                                case 2:
+                                    contact.Ln = Console.ReadLine();
+                                    break;
+                                case 3:
+                                    contact.Address = Console.ReadLine();
+                                    break;
+                                case 4:
+                                    contact.State = Console.ReadLine();
+                                    break;
+                                case 5:
+                                    contact.City = Console.ReadLine();
+                                    break;
+                                case 6:
+                                    contact.ZipCode = Console.ReadLine();
+                                    break;
+                                case 7:
+                                    contact.PhNo = Console.ReadLine();
+                                    break;
+                                case 8:
+                                    contact.Email = Console.ReadLine();
+                                    break;
+                            }
+                        }
                     }
                 }
             }
+            Display(ContactDic);
         }
-        public void Delete_Contact()
+        public void Delete_Contact(string UniqueName, string contactname)
         {
+            Console.WriteLine("Edit using First Name");
             Contact contact = new Contact();
-            Console.WriteLine("Enter name to delete contact");
             string name = Console.ReadLine();
-            foreach (var data in addressbook)
+            foreach (var data in ContactDic)
             {
-                if(data.Fn.Equals(name))
+                if (data.Key.Equals(UniqueName))
                 {
-                    contact = data;
+                    foreach (var item in data.Value)
+                    {
+                        if (item.Fn == contactname)
+                        {
+                            contact = item;
+                            AddressList = data.Value;
+                        }
+                    }
                 }
             }
-            addressbook.Remove(contact);
+            if (contact == null)
+                Console.WriteLine("no contact exits in firstname");
+            else
+                AddressList.Remove(contact);
+            Display(ContactDic);
         }
     }
 }
