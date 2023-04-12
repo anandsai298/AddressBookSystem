@@ -45,17 +45,23 @@ namespace AddressBookSystem
         public void AddContact()
         {
             string UniqueName=Console.ReadLine();
-            Contact contact = new Contact()
-            { 
-            Fn = Console.ReadLine(),
-            Ln = Console.ReadLine(),
-            Address = Console.ReadLine(),
-            State = Console.ReadLine(),
-            City = Console.ReadLine(),   
-            ZipCode = Console.ReadLine(),
-            PhNo = Console.ReadLine(),
-            Email = Console.ReadLine()
-            };
+            Contact contact = new Contact();
+            Console.WriteLine("first name -->");
+            contact.Fn = Console.ReadLine();
+            Console.WriteLine("Last name -->");
+            contact.Ln = Console.ReadLine();
+            Console.WriteLine("Address  -->");
+            contact.Address = Console.ReadLine();
+            Console.WriteLine("State name -->");
+            contact.State = Console.ReadLine();
+            Console.WriteLine("City name -->");
+            contact.City = Console.ReadLine();
+            Console.WriteLine("ZipCode  -->");
+            contact.ZipCode = Console.ReadLine();
+            Console.WriteLine("PhNo  -->");
+            contact.PhNo = Console.ReadLine();
+            Console.WriteLine("Email ID -->");
+            contact.Email = Console.ReadLine();
             foreach(var data in ContactDic)
             {
                 if (data.Key == UniqueName)
