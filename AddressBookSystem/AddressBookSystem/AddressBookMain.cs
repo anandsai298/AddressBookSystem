@@ -13,6 +13,8 @@ namespace AddressBookSystem
     {
         List<Contact> AddressList = new List<Contact>();
         Dictionary<string,List<Contact>> ContactDic = new Dictionary<string, List<Contact>> ();
+        Dictionary<string, List<Contact>> CityDic = new Dictionary<string, List<Contact>>();//uc9
+        Dictionary<string, List<Contact>> StateDic = new Dictionary<string, List<Contact>>();//uc9
         public AddressBookMain()
         {
             Contact contact1 = new Contact()
@@ -20,7 +22,7 @@ namespace AddressBookSystem
                 Fn = "ask",
                 Ln = "sa",
                 Address = "as",
-                State = "f",
+                State = "ap",
                 City = "kkd",
                 ZipCode = "5357",
                 PhNo = "123456789",
@@ -31,7 +33,7 @@ namespace AddressBookSystem
                 Fn = "ask2",
                 Ln = "sa2",
                 Address = "as2",
-                State = "f2",
+                State = "ap1",
                 City = "kkd2",
                 ZipCode = "53572",
                 PhNo = "1234567892",
@@ -40,7 +42,7 @@ namespace AddressBookSystem
             AddressList.Add(contact1);
             AddressList.Add(contact2);
             ContactDic.Add("A", AddressList);
-            
+            //AddressList = null;
         }
         public void AddContact()
         {
@@ -73,6 +75,7 @@ namespace AddressBookSystem
             AddressList.Add(contact);
             ContactDic.Add("UniqueName", AddressList);
             Display(ContactDic);
+            AddressList = null;
         }
 
         public void Display(Dictionary<string, List<Contact>>contacts)
@@ -158,6 +161,72 @@ namespace AddressBookSystem
             else
                 AddressList.Remove(contact);
             Display(ContactDic);
+            AddressList = null;
         }
+        public void SearchWithCity(string name)//uc8
+        {
+            foreach(var data in ContactDic)
+            {
+                foreach(var contact in data.Value)
+                {
+                    if (contact.City.Equals(name))
+                    {
+                        AddressList.Add(contact);
+                    }
+                }
+                CityDic.Add(name, AddressList);//uc9
+                Display(CityDic);
+                AddressList = null;
+            }
+        }
+        public void SearchWithState(string name)//uc8
+        {
+            foreach (var data in ContactDic)
+            {
+                foreach (var contact in data.Value)
+                {
+                    if (contact.State.Equals(name))
+                    {
+                        AddressList.Add(contact);
+                    }
+                }
+                StateDic.Add(name, AddressList);//uc9
+                Display(StateDic);
+                AddressList = null;
+            }
+        }
+        public void CountByCity()//uc10
+        {
+            foreach(var data in  CityDic)
+            {
+                Console.WriteLine(data.Key+"-->"+data.Value.Count);
+            }
+        }
+        public void CountByState()//uc10
+        {
+            foreach (var data in StateDic)
+            {
+                Console.WriteLine(data.Key + "-->" + data.Value.Count);
+            }
+        }
+        public void SortByPerson(string name)//uc11
+        {
+            foreach(var data in ContactDic)
+            {
+                if(data.Key.Equals(name))
+                {
+                    data.Value.OrderBy(x=>x.Fn);
+                    Display(data.Value);
+                }
+            }
+        }
+        
+        /*public void Display(List<Contact>contacts)//uc8
+        {
+            foreach (var data in contacts) 
+            {
+                Console.WriteLine("First Name--->" + data.Fn + "\n" + "Last Name--->" + data.Ln + "\n" + "Address--->" + data.Address + "\n" + "State--->" + data.State + "\n" + "City--->" + data.City + "\n" + "ZipCode--->" + data.ZipCode + "\n" + "Phone Number--->" + data.PhNo + "\n" + "Email Id--->" + data.Email);
+            }
+        }*/
     }
 }
